@@ -7,6 +7,7 @@ require_once('functions.php');
 	$mail = $_POST['mail'];
 	$naiyo = $_POST['naiyo'];
 
+
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +56,13 @@ $dbh = connectDb();
 
 $toiawaseH = array();
 
+
+$page = 1;
+
+$offset = COMMENTS_PER_PAGE * ($page - 1);
+$sql = "select * from toiawase limit ".$offset.",".COMMENTS_PER_PAGE;
+
+
 $sql = "select * from toiawase where status = 'active' order by created desc";
 
 foreach ($dbh->query($sql) as $row) {
@@ -66,7 +74,7 @@ foreach ($dbh->query($sql) as $row) {
 
 <?php foreach ($toiawaseH as $toiawase1) : ?>
 <p id="entry_<?php echo h($toiawase1['id']); ?>">
-名前 : <?php echo h($toiawase1['name']); ?><br>
+<?php echo h($toiawase1['id']); ?> 名前 : <?php echo h($toiawase1['name']); ?><br>
 メール : <?php echo h($toiawase1['mail']); ?><br><br>
 <?php echo h($toiawase1['naiyo']); ?><br><br>
 <a href="edit.php?id=<?php echo h($toiawase1['id']); ?>">[編集]</a>
