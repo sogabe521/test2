@@ -81,7 +81,6 @@ foreach ($dbh->query($sql2) as $row) {
 
 
 <?php foreach ($toiawaseH as $toiawase1) : ?>
-<?php foreach ($active as $toiawase1) : ?>
 
 <p id="entry_<?php echo h($toiawase1['id']); ?>">
 <?php echo h($toiawase1['id']); ?> 名前 : <?php echo h($toiawase1['name']); ?><br>
@@ -90,7 +89,6 @@ foreach ($dbh->query($sql2) as $row) {
 <span class="deleteLink" data-id="<?php echo h($toiawase1['id']); ?>">[削除]</span>
 </p>
 <hr>
-<?php endforeach; ?>
 <?php endforeach; ?>
 
 
