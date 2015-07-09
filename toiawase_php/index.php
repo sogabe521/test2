@@ -11,6 +11,7 @@ require_once('functions.php');
 ?>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 	<meta charset="UTF-8">
