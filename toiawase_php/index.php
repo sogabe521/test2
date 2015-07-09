@@ -11,7 +11,6 @@ require_once('functions.php');
 ?>
 
 <!DOCTYPE html>
-
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -56,33 +55,44 @@ require_once('functions.php');
 $dbh = connectDb();
 
 $toiawaseH = array();
+$active = array();
+
+$toiawaseH = $active;
 
 
 $page = 1;
 
+
 $offset = COMMENTS_PER_PAGE * ($page - 1);
-$sql = "select * from toiawase limit ".$offset.",".COMMENTS_PER_PAGE;
+$sql1 = "select * from toiawase limit ".$offset.",".COMMENTS_PER_PAGE;
+$sql2 = "select * from toiawase where status = 'active' order by created desc";
 
 
-$sql = "select * from toiawase where status = 'active' order by created desc";
-
-foreach ($dbh->query($sql) as $row) {
-	array_push($toiawaseH, $row);
+foreach ($dbh->query($sql1) as $row) {
+ array_push($toiawaseH, $row);
 }
+
+foreach ($dbh->query($sql2) as $row) {
+ array_push($active, $row);
+}
+
 
 ?>
 
 
 <?php foreach ($toiawaseH as $toiawase1) : ?>
+<?php foreach ($active as $toiawase1) : ?>
+
 <p id="entry_<?php echo h($toiawase1['id']); ?>">
 <?php echo h($toiawase1['id']); ?> 名前 : <?php echo h($toiawase1['name']); ?><br>
 メール : <?php echo h($toiawase1['mail']); ?><br><br>
 <?php echo h($toiawase1['naiyo']); ?><br><br>
-<a href="edit.php?id=<?php echo h($toiawase1['id']); ?>">[編集]</a>
 <span class="deleteLink" data-id="<?php echo h($toiawase1['id']); ?>">[削除]</span>
 </p>
 <hr>
 <?php endforeach; ?>
+<?php endforeach; ?>
+
 
 
 
